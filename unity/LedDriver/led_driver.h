@@ -4,4 +4,6 @@
 
 void leddriver_create (uint16_t *leds);
 void leddriver_turn_on(uint8_t led);
+void leddriver_turn_off(uint8_t led);
+
 #endif  /*__LED_DRIVER__*/

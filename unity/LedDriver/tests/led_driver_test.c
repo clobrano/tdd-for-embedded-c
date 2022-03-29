@@ -17,10 +17,17 @@ void turnOnLedOne(void) {
     TEST_ASSERT_EQUAL_HEX16(0x1, leds);
 }
 
+void turnOffLedOne(void) {
+    uint16_t leds;
+    leddriver_create(&leds);
+    leddriver_turn_off(1);
+    TEST_ASSERT_EQUAL_HEX16(0, leds);
+}
 
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(ledsOffAfterCreate);
     RUN_TEST(turnOnLedOne);
+    RUN_TEST(turnOffLedOne);
     return UNITY_END();
 }
