@@ -21,8 +21,8 @@ test: ${test_srcs} ${lib}
 
 unittest:
 	if command -v raffaello >/dev/null;\
-	then 	ls * | entr $(MAKE) test 2>&1 | raffaello -r "OK=>green_bold FAIL=>red_bold"; \
-	else ls * | entr $(MAKE) test; \
+	then find . \( -iname "*.c" -or -iname "*.h" \) | entr -dc $(MAKE) test 2>&1 | raffaello -r "OK=>green_bold FAIL=>red_bold"; \
+	else find . \( -iname "*.c" -or -iname "*.h" \) | entr -dc $(MAKE) test; \
 	fi
 
 clean: 
