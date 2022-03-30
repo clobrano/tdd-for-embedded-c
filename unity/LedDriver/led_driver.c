@@ -2,6 +2,11 @@
 
 static uint16_t *leds_address;
 
+enum {
+    ALL_LEDS_ON = ~0,
+    ALL_LEDS_OFF = ~ALL_LEDS_ON 
+};
+
 static int16_t ledNumberToBit(uint8_t led_number) {
     return (1 << (led_number - 1));
 }
