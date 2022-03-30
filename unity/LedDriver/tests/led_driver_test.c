@@ -1,28 +1,27 @@
 #include <unity.h>
 #include "../led_driver.h" 
 
-void setUp(void) {}
+static uint16_t virtualLEDs;
+void setUp(void) {
+    leddriver_create(&virtualLEDs);
+}
 void tearDown(void) {}
 
 void ledsOffAfterCreate(void) {
-    uint16_t leds = 0xFFFF;
-    leddriver_create(&leds);
-    TEST_ASSERT_EQUAL_HEX16(0, leds);
+    uint16_t virtualLEDs = 0xFFFF;
+    leddriver_create(&virtualLEDs);
+    TEST_ASSERT_EQUAL_HEX16(0, virtualLEDs);
 }
 
 void turnOnLedOne(void) {
-    uint16_t leds;
-    leddriver_create(&leds);
     leddriver_turn_on(1);
-    TEST_ASSERT_EQUAL_HEX16(0x1, leds);
+    TEST_ASSERT_EQUAL_HEX16(0x1, virtualLEDs);
 }
 
 void turnOffLedOne(void) {
-    uint16_t leds;
-    leddriver_create(&leds);
     leddriver_turn_on(1);
     leddriver_turn_off(1);
-    TEST_ASSERT_EQUAL_HEX16(0, leds);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtualLEDs);
 }
 
 int main(void) {
