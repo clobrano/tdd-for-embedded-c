@@ -20,6 +20,7 @@ void turnOnLedOne(void) {
 void turnOffLedOne(void) {
     uint16_t leds;
     leddriver_create(&leds);
+    leddriver_turn_on(1);
     leddriver_turn_off(1);
     TEST_ASSERT_EQUAL_HEX16(0, leds);
 }
