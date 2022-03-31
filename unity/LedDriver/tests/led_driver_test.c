@@ -30,6 +30,12 @@ void turnOnMultipleLeds(void) {
     TEST_ASSERT_EQUAL_HEX16(0x180, virtualLEDs);
 }
 
+void turnOffAnyLed(void) {
+    leddriver_turn_all_on();
+    leddriver_turn_off(8);
+    TEST_ASSERT_EQUAL_HEX16(0xFF7F, virtualLEDs);
+}
+
 void turnOnAllLeds(void) {
     leddriver_turn_all_on();
     TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtualLEDs);
@@ -49,5 +55,6 @@ int main(void) {
     RUN_TEST(turnOnMultipleLeds);
     RUN_TEST(turnOnAllLeds);
     RUN_TEST(ledMemoryIsNotReadable);
+    RUN_TEST(turnOffAnyLed);
     return UNITY_END();
 }

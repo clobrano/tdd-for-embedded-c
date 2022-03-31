@@ -27,7 +27,7 @@ void leddriver_turn_on(uint8_t led_number)
 
 void leddriver_turn_off(uint8_t led_number)
 {
-    leds_image = ALL_LEDS_OFF;
+    leds_image &= ~(ledNumberToBit(led_number));
     *leds_address = leds_image;
 }
 
