@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "led_driver.h"
 
 static uint16_t *leds_address;
@@ -19,6 +20,10 @@ static void updateHardware() {
     *leds_address = leds_image;
 }
 
+static bool isLedNUmberOutOfBound(uint8_t led_number) {
+    return (led_number < FIRST_LED || led_number > LAST_LED);
+}
+
 void leddriver_create (uint16_t *leds)
 {
     leds_address = leds;
@@ -28,7 +33,7 @@ void leddriver_create (uint16_t *leds)
 
 void leddriver_turn_on(uint8_t led_number)
 {
-    if (led_number < FIRST_LED || led_number > LAST_LED)
+    if (isLedNUmberOutOfBound(led_number))
         return;
     leds_image |= ledNumberToBit(led_number);
     updateHardware();
@@ -36,7 +41,7 @@ void leddriver_turn_on(uint8_t led_number)
 
 void leddriver_turn_off(uint8_t led_number)
 {
-    if (led_number < FIRST_LED || led_number > LAST_LED)
+    if (isLedNUmberOutOfBound(led_number))
         return;
     leds_image &= ~(ledNumberToBit(led_number));
     updateHardware();
