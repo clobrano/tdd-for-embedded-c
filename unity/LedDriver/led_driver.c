@@ -24,6 +24,14 @@ static bool isLedNUmberOutOfBound(uint8_t led_number) {
     return (led_number < FIRST_LED || led_number > LAST_LED);
 }
 
+static void setLedImageBit(uint8_t led_number) {
+    leds_image |= ledNumberToBit(led_number);
+}
+
+static void clearLedImageBit(uint8_t led_number) {
+    leds_image &= ~(ledNumberToBit(led_number));
+}
+
 void leddriver_create (uint16_t *leds)
 {
     leds_address = leds;
@@ -35,7 +43,7 @@ void leddriver_turn_on(uint8_t led_number)
 {
     if (isLedNUmberOutOfBound(led_number))
         return;
-    leds_image |= ledNumberToBit(led_number);
+    setLedImageBit(led_number);
     updateHardware();
 }
 
@@ -43,7 +51,7 @@ void leddriver_turn_off(uint8_t led_number)
 {
     if (isLedNUmberOutOfBound(led_number))
         return;
-    leds_image &= ~(ledNumberToBit(led_number));
+    clearLedImageBit(led_number);
     updateHardware();
 }
 
