@@ -47,6 +47,28 @@ void ledMemoryIsNotReadable(void) {
     TEST_ASSERT_EQUAL_HEX16(0x80, virtualLEDs);
 }
 
+void upperAndLowerBounds(void) {
+    leddriver_turn_on(1);
+    leddriver_turn_on(16);
+    TEST_ASSERT_EQUAL_HEX16(0x8001, virtualLEDs);
+}
+
+void outOfBoundsTurnOnChangesNothing(void) {
+    leddriver_turn_on(-1);
+    leddriver_turn_on(0);
+    leddriver_turn_on(17);
+    leddriver_turn_on(3141);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtualLEDs);
+}
+
+void outOfBoundsTurnOffChangesNothing(void) {
+    leddriver_turn_all_on();
+    leddriver_turn_off(-1);
+    leddriver_turn_off(0);
+    leddriver_turn_off(17);
+    leddriver_turn_off(3141);
+    TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtualLEDs);
+}
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(ledsOffAfterCreate);
@@ -56,5 +78,8 @@ int main(void) {
     RUN_TEST(turnOnAllLeds);
     RUN_TEST(ledMemoryIsNotReadable);
     RUN_TEST(turnOffAnyLed);
+    RUN_TEST(upperAndLowerBounds);
+    RUN_TEST(outOfBoundsTurnOnChangesNothing);
+    RUN_TEST(outOfBoundsTurnOffChangesNothing);
     return UNITY_END();
 }

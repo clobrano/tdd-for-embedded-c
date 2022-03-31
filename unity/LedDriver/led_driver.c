@@ -21,12 +21,16 @@ void leddriver_create (uint16_t *leds)
 
 void leddriver_turn_on(uint8_t led_number)
 {
+    if (led_number < 1 || led_number > 16)
+        return;
     leds_image |= ledNumberToBit(led_number);
     *leds_address = leds_image;
 }
 
 void leddriver_turn_off(uint8_t led_number)
 {
+    if (led_number < 1 || led_number > 16)
+        return;
     leds_image &= ~(ledNumberToBit(led_number));
     *leds_address = leds_image;
 }
