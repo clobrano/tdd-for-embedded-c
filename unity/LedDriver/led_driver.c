@@ -12,7 +12,7 @@ enum {
 const static uint8_t FIRST_LED = 1;
 const static uint8_t LAST_LED = 16;
 
-static int16_t ledNumberToBit(uint8_t led_number) {
+static int16_t ledNumberToBit(int led_number) {
     return (1 << (led_number - 1));
 }
 
@@ -20,11 +20,11 @@ static void updateHardware() {
     *leds_address = leds_image;
 }
 
-static bool isLedNUmberOutOfBound(uint8_t led_number) {
+static bool isLedNUmberOutOfBound(int led_number) {
     return (led_number < FIRST_LED || led_number > LAST_LED);
 }
 
-static void setLedImageBit(uint8_t led_number) {
+static void setLedImageBit(int led_number) {
     leds_image |= ledNumberToBit(led_number);
 }
 
@@ -39,7 +39,7 @@ void leddriver_create (uint16_t *leds)
     updateHardware();
 }
 
-void leddriver_turn_on(uint8_t led_number)
+void leddriver_turn_on(int led_number)
 {
     if (isLedNUmberOutOfBound(led_number))
         return;
@@ -47,7 +47,7 @@ void leddriver_turn_on(uint8_t led_number)
     updateHardware();
 }
 
-void leddriver_turn_off(uint8_t led_number)
+void leddriver_turn_off(int led_number)
 {
     if (isLedNUmberOutOfBound(led_number))
         return;
